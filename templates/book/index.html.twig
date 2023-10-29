@@ -1,0 +1,90 @@
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+                <td><a href="{{path('afficherbookordre')}}" >ordre </a></td><br>
+                <td><a href="{{path('afficherbook1418')}}" >livre entre 14-18 </a></td><br>
+                <td><a href="{{path('afficherbooksc')}}" >nobrebooksce</a></td><br>
+                <br>
+               
+<label>ref</label>
+<a href="{{path('plus35')}}">plus35</a>
+<form method="GET" action="{{ path('search', {'ref': app.request.query.get('ref')|default('default_value')}) }}">
+    <input type="search"  name="ref">
+    <input type="submit" value="search">
+</form>
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>ref</th>
+            <th>title</th>
+            <th>publisheddate</th>
+            <th>published</th>
+            <th>category</th>
+            <th>auther</th>
+            <th>nombreb</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.ref }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.publicationDate|date('Y-m-d') }}</td>
+                <td>{{ book.published }}</td>
+                <td>{{ book.category }}</td>
+                <td>{{ book.auther }}</td>
+                <td>{{ book.auther.getNbBooks() }}</td>
+                <td><a href="{{path('book_edit',{'ref':book.ref})}}" >edit </a></td>
+                <td><a href="{{path('delete_book',{'ref':book.ref})}}" >delete </a></td>
+                <td><a href="{{path('show_book',{'ref':book.ref})}}">show</a></td>
+                
+
+            </tr>
+
+
+        {% endfor %}
+        {% set publishedBooks = 0 %}
+            {% set unpublishedBooks = 0 %}
+                {% set message = "" %}
+            
+            {% for book in books %}
+                {% if book.published == 1 %}
+                    {% set publishedBooks = publishedBooks + 1 %}
+                
+                {% else %}
+                    {% set unpublishedBooks = unpublishedBooks + 1 %}
+                {% endif %}
+            {% endfor %}
+            <p>Number of published books: {{ publishedBooks }}</p>
+            <p>Number of unpublished books: {{ unpublishedBooks }}</p>
+            {% if books|length ==0 %}
+                {% set message = "no books" %}
+                    <p>: {{ message }}</p>
+                {% endif %}
+            <a href="{{ path('addbook') }}" class="button">Add</a>
+            </tbody>
+</table>

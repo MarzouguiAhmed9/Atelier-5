@@ -1,0 +1,31 @@
+<table border="3">
+    <tr>
+        <td>id</td>
+        <td>picture</td>
+        <td>username</td>
+        <td>email</td>
+        <td>nbr_books</td>
+        <td>details</td>
+
+    </tr>
+    {%if authers is not empty%}
+    {% for a in authers %}
+    <tr>
+        <td>{{a.id}}</td>
+        <td><img src="{{asset(a.picture)}}" alt="pic"></td>
+        <td>{{a.username|upper()}}</td>
+        <td>{{a.email}}</td>
+        <td>{{a.nb_books}}</td>
+        <td><a href="{{path('detail_control',{'id':a.id})}}">details</a></td>
+
+    </tr>
+    {% endfor %}
+{%endif%}
+
+</table>
+{% set variable = "Hello, World!" %}
+    {{ dump(variable) }}
+  
+        
+<p>le nombre d authers est {{nombreauther}}</p>
+<p>le nombre d authers est {{ nombredelivre}}</p>

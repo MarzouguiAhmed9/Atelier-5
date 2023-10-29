@@ -1,0 +1,45 @@
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <td><a href="{{path('auther_addwithform')}}" >add</a></td>
+        {% for sh in srooms %}
+            <tr>
+                <td>{{ sh.title }}</td>
+                
+                <td><a href="{{path('edit_shu',{'id':sh.id})}}" >edit j</a></td>
+                <td><a href="{{path('delete_shu',{'id':sh.id})}}" >delete j</a></td>
+                
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
